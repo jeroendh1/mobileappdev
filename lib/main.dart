@@ -1,26 +1,25 @@
 import 'view/home_page.dart';
+import 'view/history_page.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 void main() {
   runApp(
     MyApp(),
   );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _State createState() => _State();
-}
-
-class _State extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const HomePage()),
+        GetPage(name: '/search', page: () => HistoryPage()),
+      ],
     );
   }
 }
+

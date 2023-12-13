@@ -2,22 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../viewmodel/post_list_viewmodel.dart';
-import '../widget/shimmer_list.dart';
+import '../widget/menu_bar.dart';
 
-class HomePage extends StatelessWidget {
-  final PostListViewModel postListController = Get.put(PostListViewModel());
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  PostListViewModel postListController = Get.put(PostListViewModel());
+  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+  GlobalKey<RefreshIndicatorState>();
+
+  Future<void> refreshData() async {
+    await Future.delayed(const Duration(seconds: 2));
+    await postListController.getData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('Data From API')),
+      appBar:AppBar(
+        title: const Center(
+            child: Text(
+              'Auto-maat',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+        ),
+        backgroundColor: Colors.black, // Set the background color to black
       ),
-      body: SafeArea(
+      body: RefreshIndicator(
+        key: refreshIndicatorKey,
+        onRefresh: refreshData,
         child: Obx(
           () => Visibility(
             visible: postListController.isLoaded.value,
-            replacement:  Center(
+            replacement:  const Center(
               child: CircularProgressIndicator(),
             ),
             child: ListView.builder(
@@ -46,6 +70,9 @@ class HomePage extends StatelessWidget {
                           children: [
                             Text(
                               postListController.posts![index].brand,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                            )
                             ),
                             Text(
                               postListController.posts![index].model,
@@ -68,16 +95,17 @@ class HomePage extends StatelessWidget {
                             width: 280,
                           ),
                         ),
-
-
                     ],
                   ),
                 );
-
               },
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBarWidget(
+        currentIndex: postListController.currentIndex.value,
+        onTap: postListController.onTabSelected,
       ),
     );
   }
