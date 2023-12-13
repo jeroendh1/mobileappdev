@@ -12,7 +12,13 @@ class Car {
     required this.brand,
     required this.model,
     required this.fuel,
+    required this.options,
+    required this.licensePlate,
+    required this.engineSize,
+    required this.modelYear,
+    required this.since,
     required this.price,
+    required this.nrOfSeats,
     this.img,
   });
 
@@ -20,15 +26,28 @@ class Car {
   String brand;
   String model;
   String fuel;
+  String options;
+  String licensePlate;
+  int engineSize;
+  int modelYear;
+  String since;
   double price;
+  int nrOfSeats;
+
   String? img;
   factory Car.fromJson(Map<String, dynamic> json) => Car(
         id: json["id"],
         brand: json["brand"],
         model: json["model"],
         fuel: json["fuel"],
-        price: json["price"],
-        img: 'https://i.pinimg.com/originals/dc/19/e9/dc19e9b94a372ebc21ffeb7623d5632a.png',
+      options: json["options"],
+      licensePlate: json["licensePlate"],
+      engineSize: json["engineSize"],
+      modelYear: json["modelYear"],
+      since: json["since"],
+      nrOfSeats: json["nrOfSeats"],
+      price: json["price"],
+      img: 'https://i.pinimg.com/originals/dc/19/e9/dc19e9b94a372ebc21ffeb7623d5632a.png',
       );
 
   Map<String, dynamic> toJson() => {

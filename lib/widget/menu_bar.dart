@@ -21,7 +21,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
+          icon: Icon(Icons.history),
           label: 'History',
         ),
         BottomNavigationBarItem(

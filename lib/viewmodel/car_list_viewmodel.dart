@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../service/Api_service.dart';
 import 'car_viewmodel.dart';
 
-class PostListViewModel extends GetxController {
+class CarListViewModel extends GetxController {
   List<CarViewModel>? posts = RxList<CarViewModel>();
   var isLoaded = false.obs;
 
