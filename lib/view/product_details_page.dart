@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobileappdev/viewmodel/car_viewmodel.dart';
 
+import '../widget/reservation_alert.dart';
 class ProductDetailsPage extends StatelessWidget {
   final CarViewModel car;
 
@@ -152,7 +153,12 @@ class ProductDetailsPage extends StatelessWidget {
                     foregroundColor: Colors.white,
                       backgroundColor: const Color(0xffF9B401)
                   ),
-                  onPressed: () { },
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => DateAndDaysInputAlert(),
+                    );
+                  },
                   child:const Text("Reservation"),
                 ),
                 )

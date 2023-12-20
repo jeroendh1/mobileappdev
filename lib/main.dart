@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      color: Colors.red,
       debugShowCheckedModeBanner: false,
       home: HomePage(),
       initialRoute: '/',

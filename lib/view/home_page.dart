@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileappdev/view/product_details_page.dart';
-
 import '../viewmodel/car_list_viewmodel.dart';
 import '../widget/menu_bar.dart';
 class HomePage extends StatefulWidget {
@@ -48,11 +47,21 @@ class _HomePageState extends State<HomePage> {
                 hintText: 'Search...',
                 prefixIcon: Icon(Icons.search),
                 hintStyle: TextStyle(color: Colors.white),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.settings, color:  Color(0xffF9B401)),  // Your extra option button icon
+                  onPressed: () {
+                    // Handle the action when the extra option button is pressed
+                    // this is needed to build filter
+                    print('Extra option button pressed');
+                  },
+                ),
               ),
               onChanged: (value) {
                 // Handle search logic here
+                // Here needs to be te logic to filter based on search
                 print(value);
               },
+              style: TextStyle(color: Colors.white),
             ),
           ),
           Expanded(
@@ -119,13 +128,12 @@ class _HomePageState extends State<HomePage> {
                                   "€ ${carListController.posts![index].price}",
                                 ),
                               ),
-                              Positioned(
-                                top: 50,
-                                left: 50,
-                                child: Image(
-                                  image: NetworkImage(
-                                      carListController.posts![index].img),
-                                  width: 280,
+                              Positioned.fill(
+                                child: Center(
+                                  child: Image(
+                                    image: NetworkImage(carListController.posts![index].img),
+                                    width: 280,
+                                  ),
                                 ),
                               ),
                             ],

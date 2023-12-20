@@ -5,33 +5,14 @@ class CarViewModel {
 
   CarViewModel({this.car});
 
-  String get brand {
-    return car!.brand;
-  }
+  String get brand => car!.brand ?? "";
+  String get model => car!.model ?? "";
+  String get fuel => car!.fuel ?? "";
+  String get options => car!.options ?? "";
+  double get price => car!.price ?? 0.0;
+  int get modelYear => car!.modelYear ?? 0;
+  int get nrOfSeats => car!.nrOfSeats ?? 0;
+  int get engineSize => car!.engineSize ?? 0;
 
-  String get model {
-    return car!.model;
-  }
-  String get fuel {
-    return car!.fuel;
-  }
-  String get options {
-    return car!.options;
-  }
-  double get price {
-    return car!.price;
-  }
-  int get modelYear {
-    return  car!.modelYear;
-  }
-  int get nrOfSeats {
-    return  car!.nrOfSeats;
-  }
-  int get engineSize {
-    return  car!.engineSize;
-  }
-
-  String get img {
-    return car!.img!;
-  }
+  String get img => car?.img ?? "";
 }

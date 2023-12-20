@@ -6,12 +6,11 @@ class ApiService {
   Future<List<Car>?> getPosts() async {
     var client = http.Client();
     var uri = Uri.parse("https://epic-bee-happily.ngrok-free.app/api/cars");
-    print('before');
+
     var response = await client.get(uri, headers: {
       'Authorization': 'Bearer $token',
     });
-    print('after');
-    print(response);
+
     if (response.statusCode == 200) {
       var json = response.body;
       print(json.toString());
