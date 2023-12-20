@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../viewmodel/car_list_viewmodel.dart';
 import '../widget/menu_bar.dart';
 import 'package:get/get.dart';
+import '../viewmodel/main_viewmodel.dart';
 class HistoryPage extends StatelessWidget {
-  CarListViewModel carListController = Get.put(CarListViewModel());
+  MainViewModel mainController =  Get.put(MainViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,8 +14,8 @@ class HistoryPage extends StatelessWidget {
         child: Text('Search Page Content'),
       ),
       bottomNavigationBar: BottomNavigationBarWidget(
-        currentIndex: carListController.currentIndex.value,
-        onTap: carListController.onTabSelected,
+        currentIndex: mainController.currentIndex.value,
+        onTap: mainController.onTabSelected,
       ),
     );
   }

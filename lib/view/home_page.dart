@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileappdev/view/product_details_page.dart';
 import '../viewmodel/car_list_viewmodel.dart';
+import '../viewmodel/main_viewmodel.dart';
 import '../widget/menu_bar.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   CarListViewModel carListController = Get.put(CarListViewModel());
+  MainViewModel mainController =  Get.put(MainViewModel());
   GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
   GlobalKey<RefreshIndicatorState>();
   TextEditingController searchController = TextEditingController();
@@ -149,8 +151,8 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBarWidget(
-        currentIndex: carListController.currentIndex.value,
-        onTap: carListController.onTabSelected,
+        currentIndex: mainController.currentIndex.value,
+        onTap: mainController.onTabSelected,
       ),
     );
   }

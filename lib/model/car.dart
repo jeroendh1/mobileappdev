@@ -53,7 +53,7 @@ class Car {
         img: 'https://i.pinimg.com/originals/dc/19/e9/dc19e9b94a372ebc21ffeb7623d5632a.png',
       );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "brand": brand,
         "model": model,
@@ -67,4 +67,6 @@ class Car {
         "price":price,
         "body":body
       };
+
+
 }
