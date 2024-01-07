@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobileappdev/viewmodel/car_viewmodel.dart';
+import 'package:mobileappdev/widget/reservation_bottom_sheet.dart';
 
-import '../widget/reservation_alert.dart';
 class ProductDetailsPage extends StatelessWidget {
   final CarViewModel car;
 
@@ -23,10 +23,11 @@ class ProductDetailsPage extends StatelessWidget {
               child: Center(
                 child: Padding(
                   padding: EdgeInsets.only(top: 30, bottom: 30),
-                  child: Image.network(
+                  child:
+                  Image.asset(
                     car.img,
                     width: double.infinity,
-                  ),
+                  )
                 ),
               ),
             ),
@@ -80,7 +81,7 @@ class ProductDetailsPage extends StatelessWidget {
 
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(
+                  child: const Text(
                     "Features",
                     style: TextStyle(
                       fontSize: 16,
@@ -154,10 +155,11 @@ class ProductDetailsPage extends StatelessWidget {
                       backgroundColor: const Color(0xffF9B401)
                   ),
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => DateAndDaysInputAlert(),
-                    );
+                    bottomSheet(context);
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (context) => DateAndDaysInputAlert(),
+                    // );
                   },
                   child:const Text("Reservation"),
                 ),
@@ -171,6 +173,7 @@ class ProductDetailsPage extends StatelessWidget {
 
     );
   }
+
 }
 
 // Custom widget for a responsive square container
@@ -228,3 +231,4 @@ class ResponsiveSquareContainer extends StatelessWidget {
     );
   }
 }
+

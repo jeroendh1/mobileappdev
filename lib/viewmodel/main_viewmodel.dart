@@ -4,7 +4,6 @@ class MainViewModel extends GetxController {
   RxInt currentIndex = 0.obs;
 
   void onTabSelected(int index) {
-    print(currentIndex);
     currentIndex.value = index;
 
     // Navigate to the corresponding page

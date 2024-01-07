@@ -13,6 +13,17 @@ class CarViewModel {
   int get modelYear => car!.modelYear ?? 0;
   int get nrOfSeats => car!.nrOfSeats ?? 0;
   int get engineSize => car!.engineSize ?? 0;
+  String get body => car!.body ?? "";
 
-  String get img => car?.img ?? "";
+  String get img => brandToUrl[car?.brand.toLowerCase()] ?? 'assets/bmw.png';
+
+  final brandToUrl = {
+    'bmw': 'assets/bmw.png',
+    'audi': 'assets/audi.png',
+    'ford': 'assets/ford.png',
+    'honda': 'assets/honda.png',
+    'jeep': 'assets/jeep.png',
+    'toyota': 'assets/toyota.png',
+  };
+
 }

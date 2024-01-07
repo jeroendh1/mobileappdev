@@ -18,14 +18,47 @@ abstract class BaseDatabaseHelper<T> {
     String path = join(await getDatabasesPath(), dbName);
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (Database db, int version) async {
-        await onCreate(db);
+        await createCarTable(db);
+        await createRentalTable(db);
       },
     );
   }
 
-  Future<void> onCreate(Database db);
+  Future<void> createCarTable(Database db) async {
+    await db.execute('''
+      CREATE TABLE cars (
+        id INTEGER PRIMARY KEY,
+        brand TEXT NOT NULL,
+        model TEXT NOT NULL,
+        fuel TEXT CHECK(fuel IN ('GASOLINE', 'DIESEL', 'HYBRID', 'ELECTRIC')) NOT NULL,
+        options TEXT,
+        licensePlate TEXT,
+        engineSize INTEGER NOT NULL,
+        modelYear INTEGER NOT NULL,
+        since TEXT NOT NULL,
+        price REAL NOT NULL,
+        nrOfSeats INTEGER NOT NULL,
+        body TEXT CHECK(body IN ('STATIONWAGON', 'SEDAN', 'HATCHBACK', 'MINIVAN', 'MPV', 'SUV', 'COUPE', 'TRUCK', 'CONVERTIBLE')) NOT NULL
+)   ''');
+  }
+
+  Future<void> createRentalTable(Database db) async {
+    await db.execute('''
+      CREATE TABLE rentals (
+        id INTEGER PRIMARY KEY,
+        code TEXT NOT NULL,
+        longitude REAL NOT NULL,
+        latitude REAL NOT NULL,
+        fromDate TEXT NOT NULL,
+        toDate TEXT NOT NULL,
+        state TEXT CHECK(state IN ('ACTIVE', 'RESERVED', 'PICKUP', 'RETURNED')) NOT NULL,
+        car_id INTEGER NOT NULL, 
+        FOREIGN KEY (car_id) REFERENCES cars(id)
+      )
+    ''');
+  }
 
   Future<void> saveDataToDatabase(List<T> data);
 

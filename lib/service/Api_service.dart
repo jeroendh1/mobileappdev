@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:mobileappdev/model/rentals.dart';
 import '../model/car.dart';
 
 class ApiService {
@@ -12,6 +13,21 @@ class ApiService {
 
     if (response.statusCode == 200) {
       return carFromJson(response.body);
+    } else {
+      throw Exception("Unable to perform request!");
+    }
+  }
+
+  Future<List<Rental>?> getRentals() async {
+    var client = http.Client();
+    var uri = Uri.parse("https://epic-bee-happily.ngrok-free.app/api/rentals");
+    var response = await http.Client().get(uri, headers: {
+      'Authorization': 'Bearer $token',
+    });
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      return rentalFromJson(response.body);
     } else {
       throw Exception("Unable to perform request!");
     }

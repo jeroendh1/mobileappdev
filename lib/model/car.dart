@@ -19,7 +19,6 @@ class Car {
   double price;
   int nrOfSeats;
   String body;
-  String? img;
 
   Car({
     required this.id,
@@ -33,8 +32,7 @@ class Car {
     required this.since,
     required this.price,
     required this.nrOfSeats,
-    required this.body,
-    this.img,
+    required this.body
   });
 
   factory Car.fromJson(Map<String, dynamic> json) => Car(
@@ -50,8 +48,8 @@ class Car {
         nrOfSeats: json["nrOfSeats"],
         price: json["price"],
         body: json['body'],
-        img: 'https://i.pinimg.com/originals/dc/19/e9/dc19e9b94a372ebc21ffeb7623d5632a.png',
       );
+
 
     Map<String, dynamic> toJson() => {
         "id": id,
@@ -67,6 +65,5 @@ class Car {
         "price":price,
         "body":body
       };
-
 
 }

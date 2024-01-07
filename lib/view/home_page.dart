@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileappdev/view/product_details_page.dart';
-import '../viewmodel/car_list_viewmodel.dart';
+import '../viewmodel/home_viewmodel.dart';
 import '../viewmodel/main_viewmodel.dart';
 import '../widget/menu_bar.dart';
+
+import '../widget/filter_model.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -12,15 +14,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  CarListViewModel carListController = Get.put(CarListViewModel());
+  HomeViewModel carListController = Get.put(HomeViewModel());
   MainViewModel mainController =  Get.put(MainViewModel());
-  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
-  GlobalKey<RefreshIndicatorState>();
+  GlobalKey<RefreshIndicatorState> refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
   TextEditingController searchController = TextEditingController();
 
   Future<void> refreshData() async {
     await Future.delayed(const Duration(seconds: 2));
-    await carListController.getData();
+    await carListController.getCars();
   }
 
   @override
@@ -46,22 +47,19 @@ class _HomePageState extends State<HomePage> {
             child: TextField(
               controller: searchController,
               decoration: InputDecoration(
-                hintText: 'Search...',
+                hintText: 'Zoeken...',
                 prefixIcon: Icon(Icons.search),
                 hintStyle: TextStyle(color: Colors.white),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.settings, color:  Color(0xffF9B401)),  // Your extra option button icon
+                  icon: Icon(Icons.settings, color:  Color(0xffF9B401)),
                   onPressed: () {
-                    // Handle the action when the extra option button is pressed
-                    // this is needed to build filter
-                    print('Extra option button pressed');
+                    _showFilterBottomSheet(context);
                   },
                 ),
               ),
               onChanged: (value) {
-                // Handle search logic here
-                // Here needs to be te logic to filter based on search
-                print(value);
+                String query = searchController.text.toLowerCase();
+                  carListController.searchFilter(query);
               },
               style: TextStyle(color: Colors.white),
             ),
@@ -77,8 +75,6 @@ class _HomePageState extends State<HomePage> {
                     child: CircularProgressIndicator(),
                   ),
                   child: ListView.builder(
-                    reverse: false,
-                    cacheExtent: 25,
                     physics: const ScrollPhysics(),
                     itemCount: carListController.posts!.length,
                     itemBuilder: (context, index) {
@@ -108,8 +104,8 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               Positioned(
-                                top: 20, // Adjust the top offset as needed
-                                left: 20, // Adjust the left offset as needed
+                                top: 20,
+                                left: 20,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -124,17 +120,20 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               Positioned(
-                                top: 20, // Adjust the bottom offset as needed
-                                right: 20, // Adjust the right offset as needed
+                                top: 20,
+                                right: 20,
                                 child: Text(
                                   "€ ${carListController.posts![index].price}",
                                 ),
                               ),
                               Positioned.fill(
                                 child: Center(
-                                  child: Image(
-                                    image: NetworkImage(carListController.posts![index].img),
-                                    width: 280,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 25.0),
+                                    child: Image(
+                                      image: AssetImage(carListController.posts![index].img),
+                                      width: 280,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -154,6 +153,14 @@ class _HomePageState extends State<HomePage> {
         currentIndex: mainController.currentIndex.value,
         onTap: mainController.onTabSelected,
       ),
+    );
+  }
+  void _showFilterBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return FilterModalBottomSheet();
+      },
     );
   }
 }
