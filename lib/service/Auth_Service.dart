@@ -7,8 +7,6 @@ import '../data/SecureStorage.dart';
 class AuthenticationService {
   final SecureStorage _secureStorage = SecureStorage();
 
-  // final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
-
   Future<String?> login(String username, String password, bool rememberMe) async {
     try {
       var uri = Uri.parse('https://specially-equipped-swan.ngrok-free.app/api/authenticate');
@@ -33,19 +31,24 @@ class AuthenticationService {
       }
     } catch (e) {
       // Handle exceptions or network errors
+      print('Error refreshing token: $e');
       return null;
     }
   }
 
-  Future<String?> refreshToken(String? token) async {
+  Future<String?> refreshToken() async {
     try {
       var uri = Uri.parse('https://specially-equipped-swan.ngrok-free.app/api/authenticate');
-      var response = await http.get(
+      final String? username = await _secureStorage.readSecureData('username');
+      final String? password = await _secureStorage.readSecureData('password');
+      var response = await http.post(
         uri,
-        headers: {
-          'accept': '*/*',
-          'Authorization': 'Bearer $token',
-        },
+        body: jsonEncode({
+          'username': username,
+          'password': password,
+          'rememberMe': true,
+        }),
+        headers: {'Content-Type': 'application/json'},
       );
 
       if (response.statusCode == 200) {
@@ -64,7 +67,7 @@ class AuthenticationService {
 
   Future<bool> checkAndRenewToken() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    await _secureStorage.deleteSecureData('token');
+    // await _secureStorage.deleteSecureData('token');
     final String? token = await _secureStorage.readSecureData('token');
     if (token != "No data found!") {
       String? storedTimestamp = _prefs.getString('tokenTimestamp');
@@ -75,10 +78,9 @@ class AuthenticationService {
 
         if (difference.inDays >= 28) {
           // Token is older than 28 days, renew the token here
-          String? refreshedToken = await refreshToken(token);
+          String? refreshedToken = await refreshToken();
           if (refreshedToken != null) {
             await _secureStorage.writeSecureData('token', refreshedToken);
-
             // Update timestamp in SharedPreferences
             String updatedTimestamp = DateTime.now().toIso8601String();
             await _prefs.setString('tokenTimestamp', updatedTimestamp);
