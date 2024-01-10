@@ -14,6 +14,7 @@ class AuthenticationViewModel {
       await _secureStorage.writeSecureData('token', token);
       await _secureStorage.writeSecureData('username', username);
       await _secureStorage.writeSecureData('password', password);
+      await _prefs.setBool("tokenValid", true);
 
       // Save current datetime in SharedPreferences
       DateTime now = DateTime.now();

@@ -11,7 +11,7 @@ class MainViewModel extends GetxController {
     switch (index) {
       case 0:
       // Get.toNamed('/') For arrow above page
-        Get.offAllNamed('/');
+        Get.offAllNamed('/home');
         break;
       case 1:
         Get.offAllNamed('/search'); // Navigate to the search page

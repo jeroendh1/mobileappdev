@@ -53,7 +53,7 @@ class AuthenticationService {
 
       if (response.statusCode == 200) {
         // Extract and return the refreshed JWT token from the response
-        var refreshedToken = jsonDecode(response.body)['token'];
+        var refreshedToken = response.headers['authorization'];
         return refreshedToken;
       } else {
         // Handle different status codes or error scenarios
@@ -67,7 +67,6 @@ class AuthenticationService {
 
   Future<bool> checkAndRenewToken() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    // await _secureStorage.deleteSecureData('token');
     final String? token = await _secureStorage.readSecureData('token');
     if (token != "No data found!") {
       String? storedTimestamp = _prefs.getString('tokenTimestamp');
