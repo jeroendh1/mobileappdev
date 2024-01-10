@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/SecureStorage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+final String? base_url = dotenv.env['Base_URL'];
 
 class AuthenticationService {
   final SecureStorage _secureStorage = SecureStorage();
 
   Future<String?> login(String username, String password, bool rememberMe) async {
     try {
-      var uri = Uri.parse('https://specially-equipped-swan.ngrok-free.app/api/authenticate');
+      var uri = Uri.parse('$base_url/api/authenticate');
       var response = await http.post(
         uri,
         body: jsonEncode({
@@ -38,7 +40,7 @@ class AuthenticationService {
 
   Future<String?> refreshToken() async {
     try {
-      var uri = Uri.parse('https://specially-equipped-swan.ngrok-free.app/api/authenticate');
+      var uri = Uri.parse('$base_url/api/authenticate');
       final String? username = await _secureStorage.readSecureData('username');
       final String? password = await _secureStorage.readSecureData('password');
       var response = await http.post(
