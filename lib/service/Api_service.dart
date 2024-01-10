@@ -1,20 +1,26 @@
 import 'package:http/http.dart' as http;
 import 'package:mobileappdev/model/rentals.dart';
 import '../model/car.dart';
+import '../data/SecureStorage.dart';
 
 class ApiService {
-  var token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTcwNTA4NDIzMywiYXV0aCI6IlJPTEVfQURNSU4gUk9MRV9VU0VSIiwiaWF0IjoxNzAyNDkyMjMzfQ.KFI5Cpn5NfxUU0lAPVjWgw8W73EdczXEJGxG3tnYUzUMOFdVJbKoL-ylADfUlm7fFijUno-ARakxXjS_P_iFEA";
+  final SecureStorage _secureStorage = SecureStorage();
+  // var token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTcwMzE1NTM4NiwiYXV0aCI6IlJPTEVfQURNSU4gUk9MRV9VU0VSIiwiaWF0IjoxNzAzMDY4OTg2fQ.fVkldDs3_JL1HjRKQjqnDpNkuHN8c7AAFGvTs8z0_Lh__FSgbP1xYi6FNc_GxffGjUPMLJxoVprkFhlZhxw61g";
   Future<List<Car>?> getCars() async {
-    var client = http.Client();
-    var uri = Uri.parse("https://epic-bee-happily.ngrok-free.app/api/cars");
-    var response = await http.Client().get(uri, headers: {
-      'Authorization': 'Bearer $token',
-    });
+    final String? token = await _secureStorage.readSecureData('token');
+    if (token != null){
+      var uri = Uri.parse("https://specially-equipped-swan.ngrok-free.app/api/cars");
+      var response = await http.Client().get(uri, headers: {
+        'Authorization': token,
+      });
 
-    if (response.statusCode == 200) {
-      return carFromJson(response.body);
+      if (response.statusCode == 200) {
+        return carFromJson(response.body);
+      } else {
+        throw Exception("Unable to perform request!");
+      }
     } else {
-      throw Exception("Unable to perform request!");
+      return null;
     }
   }
 
