@@ -44,12 +44,13 @@ class ApiService {
   }
   Future<void> createRental(Rental newRental) async {
     try {
-      var uri = Uri.parse("https://epic-bee-happily.ngrok-free.app/api/rentals");
+      final String? token = await _secureStorage.readSecureData('token');
+      var uri = Uri.parse("$base_url/api/rentals");
       var response = await http.post(
         uri,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
+          'Authorization': token!,
         },
         body:json.encode(newRental.toJsonWithCar()),
       );

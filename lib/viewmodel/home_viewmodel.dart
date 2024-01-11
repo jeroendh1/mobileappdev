@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 import '../model/car.dart';
 import '../service/Api_service.dart';
-import 'car_viewmodel.dart';
 import '../data/car_database_helper.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -24,11 +23,11 @@ class HomeViewModel extends GetxController {
       }
     }
 
-    final localCars = await carDatabaseHelper.getDataFromDatabase();
+    originalPosts = await carDatabaseHelper.getDataFromDatabase();
     // originalPosts = localCars.map((car) => Car(car: car)).toList();
 
     posts?.clear();
-    posts?.addAll(localCars!);
+    posts?.addAll(originalPosts!);
     isLoaded.value = true;
 
     print("getData (DB)");
