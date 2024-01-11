@@ -21,8 +21,9 @@ class RentalDatabaseHelper extends BaseDatabaseHelper<Rental> {
   @override
   Future<List<Rental>> getDataFromDatabase() async {
     Database db = await database;
-    List<Map<String, dynamic>> storedRentals = await db.query('rentals');
-    return storedRentals.map((rental) => Rental.fromJson(rental)).toList();
+    // List<Map<String, dynamic>> storedRentals = await db.query('rentals');
+    List<Map<String, dynamic>> storedRentals = await db.rawQuery('select * from rentals  INNER JOIN cars ON rentals.car_id = cars.id');
+    return storedRentals.map((rental) => Rental.fromJsonWithCar(rental)).toList();
   }
 
 }

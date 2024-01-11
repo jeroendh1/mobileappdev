@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 class MainViewModel extends GetxController {
   RxInt currentIndex = 0.obs;
 
+
+
+
   void onTabSelected(int index) {
     currentIndex.value = index;
 

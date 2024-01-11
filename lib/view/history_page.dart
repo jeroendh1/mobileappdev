@@ -74,7 +74,7 @@ class _HistoryPageState extends State<HistoryPage> {
                             children: [
                               Container(
                                 width: 368,
-                                height: 100,
+                                height: 130,
                                 decoration: BoxDecoration(
                                   borderRadius:
                                   BorderRadius.circular(10.109890937805176),
@@ -87,6 +87,10 @@ class _HistoryPageState extends State<HistoryPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Text('${historyListController.rentals![index].car?.brand} - ${historyListController.rentals![index].car?.model} ',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                        )),
                                     Text('Status: ${historyListController.rentals![index].state}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w600,

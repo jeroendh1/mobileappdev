@@ -14,18 +14,15 @@ class HistoryViewModel extends GetxController {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult != ConnectivityResult.none) {
       final result = await ApiService().getRentals();
-
       if (result != null) {
         await rentalDatabaseHelper.saveDataToDatabase(result.cast<Rental>());
         print("Saved data ");
       }
     }
-
     final localRentals = await rentalDatabaseHelper.getDataFromDatabase();
 
     rentals?.clear();
     rentals?.addAll(localRentals!);
-
     print("getData (DB)");
   }
   @override

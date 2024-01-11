@@ -5,6 +5,7 @@ class CarViewModel {
 
   CarViewModel({this.car});
 
+  int get id => car!.id ?? 0;
   String get brand => car!.brand ?? "";
   String get model => car!.model ?? "";
   String get fuel => car!.fuel ?? "";

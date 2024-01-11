@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:mobileappdev/model/rentals.dart';
 import '../model/car.dart';
@@ -32,5 +34,25 @@ class ApiService {
       throw Exception("Unable to perform request!");
     }
   }
+  Future<void> createRental(Rental newRental) async {
+    try {
+      var uri = Uri.parse("https://epic-bee-happily.ngrok-free.app/api/rentals");
+      var response = await http.post(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body:json.encode(newRental.toJsonWithCar()),
+      );
 
+      if (response.statusCode == 201) {
+        print('Rental created successfully');
+      } else {
+        throw Exception("Unable to create rental!");
+      }
+    } catch (e) {
+      print('Error creating rental: $e');
+    }
+  }
 }

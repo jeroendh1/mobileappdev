@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mobileappdev/viewmodel/car_viewmodel.dart';
 import 'package:mobileappdev/widget/reservation_bottom_sheet.dart';
 
+import '../model/car.dart';
+
 class ProductDetailsPage extends StatelessWidget {
-  final CarViewModel car;
+  final Car car;
 
   ProductDetailsPage({
     required this.car,
@@ -155,7 +157,7 @@ class ProductDetailsPage extends StatelessWidget {
                       backgroundColor: const Color(0xffF9B401)
                   ),
                   onPressed: () {
-                    bottomSheet(context);
+                    bottomSheet(context, car);
                     // showDialog(
                     //   context: context,
                     //   builder: (context) => DateAndDaysInputAlert(),

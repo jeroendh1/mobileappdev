@@ -8,27 +8,29 @@ String rentalToJson(List<Rental> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Rental {
-  int id;
+  int? id;
   String code;
   double longitude;
   double latitude;
   String fromDate;
   String toDate;
   String state;
-  int carId;
+  Car? car;
+  int? car_id;
 
   Rental({
-    required this.id,
+    this.id,
     required this.code,
     required this.longitude,
     required this.latitude,
     required this.fromDate,
     required this.toDate,
     required this.state,
-    required this.carId,
+    this.car,
+    this.car_id,
   });
 
-  factory Rental.fromJson(Map<String, dynamic> json) => Rental(
+  factory Rental.fromJsonWithCar(Map<String, dynamic> json) => Rental(
       id: json["id"],
       code: json["code"],
       longitude: json["longitude"],
@@ -36,8 +38,19 @@ class Rental {
       fromDate: json["fromDate"],
       toDate: json["toDate"],
       state: json["state"],
-      carId: json.containsKey('car') ? json['car']['id'] : json['car_id'],
+      car: Car.fromJson(json),
     );
+
+  factory Rental.fromJson(Map<String, dynamic> json) => Rental(
+    id: json["id"],
+    code: json["code"],
+    longitude: json["longitude"],
+    latitude: json["latitude"],
+    fromDate: json["fromDate"],
+    toDate: json["toDate"],
+    state: json["state"],
+    car_id:  json['car']['id'],
+  );
 
   Map<String, dynamic> toJson() => {
     "id": id,
@@ -47,7 +60,18 @@ class Rental {
     "fromDate": fromDate,
     "toDate": toDate,
     "state": state,
-    'car_id': carId,
+    "car_id": car_id,
   };
 
+  Map<String, dynamic> toJsonWithCar() => {
+    "id": id,
+    "code": code,
+    "longitude": longitude,
+    "latitude": latitude,
+    "fromDate": fromDate,
+    "toDate": toDate,
+    "state": state,
+    "car_id": car_id,
+    "car": car,
+  };
 }

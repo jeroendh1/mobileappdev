@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import '../model/car.dart';
+import '../viewmodel/reservation_controller.dart';
 // late TextEditingController _dateController;
-void bottomSheet(BuildContext context) {
-  late TextEditingController _dateController = TextEditingController();
+void bottomSheet(BuildContext context, Car car) {
+  late TextEditingController _toDateController = TextEditingController();
+  late TextEditingController _fromDateController = TextEditingController();
+  ReservationController _reservationController = ReservationController();
 
   showModalBottomSheet(
     isScrollControlled: true,
@@ -31,10 +35,10 @@ void bottomSheet(BuildContext context) {
                   height: 20,
                 ),
                 TextField(
-                  controller: _dateController,
+                  controller: _fromDateController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Enter  datum',
+                    hintText: 'Enter bezorg datum',
                     labelText: ' Datum',
                   ),
                   onTap: () async {
@@ -45,27 +49,31 @@ void bottomSheet(BuildContext context) {
                       lastDate: DateTime(2101),
                     );
                     if (pickedDate != null ) {
-                      _dateController.text = pickedDate.toLocal().toString().split(' ')[0];
+                      _fromDateController.text = pickedDate.toLocal().toString().split(' ')[0];
                     }
                   },
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                TextFormField(
-
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter Mobile Number';
-                    }
-                    return null;
-                  },
+                TextField(
+                  controller: _toDateController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Enter  Number',
-                    labelText: ' Number',
+                    hintText: 'Enter ophaal datum',
+                    labelText: ' Datum',
                   ),
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2101),
+                    );
+                    if (pickedDate != null ) {
+                      _toDateController.text = pickedDate.toLocal().toString().split(' ')[0];
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 20,
@@ -77,11 +85,12 @@ void bottomSheet(BuildContext context) {
                         backgroundColor: const Color(0xffF9B401)
                     ),
                     onPressed: () {
-                      String selectedDate = _dateController.text;
-                      // int numberOfDays = int.tryParse(daysController.text) ?? 0;
+                      String fromDate = _fromDateController.text;
+                      String toDate = _toDateController.text;
 
-                      print('Selected Date: $selectedDate');
-                      // print('Number of Days: $numberOfDays');
+                      _reservationController.makeReservation(fromDate, toDate, car);
+                      print('Selected to Date: $toDate');
+                      print('Selected from Date:  $fromDate');
                       Navigator.of(context).pop();
                     },
                     child: Text(

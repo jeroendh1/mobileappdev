@@ -1,13 +1,14 @@
 import 'package:get/get.dart';
 
+import '../model/car.dart';
 import '../service/Api_service.dart';
 import 'car_viewmodel.dart';
 import '../data/car_database_helper.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class HomeViewModel extends GetxController {
-  List<CarViewModel>? posts = RxList<CarViewModel>();
-  List<CarViewModel>? originalPosts = RxList<CarViewModel>();
+  List<Car>? posts = RxList<Car>();
+  List<Car>? originalPosts = RxList<Car>();
 
   var isLoaded = false.obs;
 
@@ -24,17 +25,17 @@ class HomeViewModel extends GetxController {
     }
 
     final localCars = await carDatabaseHelper.getDataFromDatabase();
-    originalPosts = localCars.map((car) => CarViewModel(car: car)).toList();
+    // originalPosts = localCars.map((car) => Car(car: car)).toList();
 
     posts?.clear();
-    posts?.addAll(originalPosts!);
+    posts?.addAll(localCars!);
     isLoaded.value = true;
 
     print("getData (DB)");
   }
   // Check if the brand or model name contains the query value.
   void searchFilter(String query) {
-    List<CarViewModel> filteredCars = originalPosts!.where((car) =>
+    List<Car> filteredCars = originalPosts!.where((car) =>
     car.brand.toLowerCase().contains(query) ||
         car.model.toLowerCase().contains(query))
         .toList();
@@ -43,7 +44,7 @@ class HomeViewModel extends GetxController {
   }
 
   void filterCars(int startYear, int endYear, String selectedFuelType, String selectedBody) {
-    List<CarViewModel> filteredCars = originalPosts!
+    List<Car> filteredCars = originalPosts!
         .where((car) =>
     (car.modelYear >= startYear) &&
         (car.modelYear <= endYear) &&
