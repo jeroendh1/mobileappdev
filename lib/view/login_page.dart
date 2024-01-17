@@ -69,6 +69,20 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 child: Text('Login'),
               ),
+              SizedBox(height: 20.0),
+              GestureDetector(
+                onTap: () {
+                  // Navigate to the registration page
+                  Navigator.pushReplacementNamed(context, '/register');
+                },
+                child: Text(
+                  'Don\'t have an account? Sign up here',
+                  style: TextStyle(
+                    color: Colors.blue, // You can customize the color
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
