@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:mobileappdev/view/login_page.dart';
 
 import '../viewmodel/Auth_viewmodel.dart';
@@ -15,6 +14,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController(); // Added field
+  final TextEditingController _lastNameController = TextEditingController();  // Added field
 
   @override
   Widget build(BuildContext context) {
@@ -54,16 +55,32 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               SizedBox(height: 20.0),
+              TextField(  // Added field
+                controller: _firstNameController,
+                decoration: InputDecoration(
+                  labelText: 'First Name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              TextField(  // Added field
+                controller: _lastNameController,
+                decoration: InputDecoration(
+                  labelText: 'Last Name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () async {
                   // Handle registration logic here
                   String email = _emailController.text.trim();
                   String username = _usernameController.text.trim();
                   String password = _passwordController.text.trim();
+                  String firstName = _firstNameController.text.trim();  // Added field
+                  String lastName = _lastNameController.text.trim();    // Added field
 
-                  // Perform registration logic (e.g., call an API, save to database)
-                  // ...
-                  var registered = authController.register(username, email, password);
+                  var registered = authController.register(username, email, firstName, lastName, password);
                   if (await registered){
                     Navigator.push(
                       context,
