@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:mobileappdev/view/home_page.dart';
-import 'package:provider/provider.dart';
-import '../viewmodel/Auth_viewmodel.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:mobileappdev/view/login_page.dart';
 
-class LoginPage extends StatefulWidget {
+import '../viewmodel/Auth_viewmodel.dart';
+
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   AuthenticationViewModel authController = Get.put(AuthenticationViewModel());
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final bool _rememberMe = true; // Change this value as per your logic
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('Register'),
       ),
       body: Center(
         child: Padding(
@@ -28,6 +29,14 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20.0),
               TextField(
                 controller: _usernameController,
                 decoration: InputDecoration(
@@ -47,36 +56,33 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () async {
+                  // Handle registration logic here
+                  String email = _emailController.text.trim();
                   String username = _usernameController.text.trim();
                   String password = _passwordController.text.trim();
-                  if (username.isNotEmpty && password.isNotEmpty) {
-                    String? token = await authController.login(username, password, _rememberMe);
-                    print(token);
-                    if (token != null) {
-                      // Login successful, navigate to the next screen
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage()
-                        ),
-                      );
-                    } else {
-                      // Show error message to the user or handle authentication failure
-                    }
-                  } else {
-                    // Show error message for empty fields
+
+                  // Perform registration logic (e.g., call an API, save to database)
+                  // ...
+                  var registered = authController.register(username, email, password);
+                  if (await registered){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginPage()
+                      ),
+                    );
                   }
                 },
-                child: Text('Login'),
+                child: Text('Register'),
               ),
               SizedBox(height: 20.0),
               GestureDetector(
                 onTap: () {
-                  // Navigate to the registration page
-                  Navigator.pushReplacementNamed(context, '/register');
+                  // Navigate to the login page
+                  Navigator.pop(context);
                 },
                 child: Text(
-                  'Don\'t have an account? Sign up here',
+                  'Already have an account? Login here',
                   style: TextStyle(
                     color: Colors.blue, // You can customize the color
                     decoration: TextDecoration.underline,

@@ -94,4 +94,34 @@ class AuthenticationService {
     }
     return false;
   }
+
+  Future<bool> register(String username, String email, String password) async {
+    try {
+      var uri = Uri.parse('$base_url/api/AM/register');
+      var response = await http.post(
+        uri,
+        body: jsonEncode({
+          'login': username,
+          'email': email,
+          "activated": true,
+          'password': password,
+        }),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 201) {
+        // Extract and return the JWT token from the response
+        print("registeratie geslaagd");
+        return true;
+      } else {
+        // Handle different status codes or error scenarios
+        return false;
+      }
+    } catch (e) {
+      // Handle exceptions or network errors
+      print('Error refreshing token: $e');
+      return false;
+    }
+  }
+
 }

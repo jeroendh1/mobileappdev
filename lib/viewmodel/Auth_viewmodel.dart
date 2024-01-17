@@ -28,4 +28,10 @@ class AuthenticationViewModel {
     return token;
   }
 
+  Future<bool> register(String username, String email, String password) async {
+   var registered = AuthenticationService().register(username, email, password);
+
+    return registered;
+  }
+
 }
