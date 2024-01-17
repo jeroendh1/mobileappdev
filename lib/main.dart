@@ -37,7 +37,8 @@ class MyApp extends StatelessWidget {
       home: tokenValid ? HomePage() : LoginPage(),
       initialRoute: '/',
       routes: {
-        '/register': (context) => RegisterPage(), // Register the RegisterPage route
+        '/register': (context) => RegisterPage(),
+        '/login': (context) => LoginPage(),
       },
       getPages: [
         GetPage(name: '/home', page: () => const HomePage()),

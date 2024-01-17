@@ -95,8 +95,8 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(height: 20.0),
               GestureDetector(
                 onTap: () {
-                  // Navigate to the login page
-                  Navigator.pop(context);
+                  // Navigate to the registration page
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
                 child: Text(
                   'Already have an account? Login here',
