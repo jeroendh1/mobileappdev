@@ -1,5 +1,6 @@
 import 'package:mobileappdev/view/login_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mobileappdev/view/profile_page.dart';
 
 import 'data/SecureStorage.dart';
 import 'view/home_page.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/home', page: () => const HomePage()),
         GetPage(name: '/search', page: () => HistoryPage()),
+        GetPage(name: '/profile', page: () => ProfilePage()),
       ],
     );
   }

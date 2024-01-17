@@ -4,8 +4,6 @@ class MainViewModel extends GetxController {
   RxInt currentIndex = 0.obs;
 
 
-
-
   void onTabSelected(int index) {
     currentIndex.value = index;
 
@@ -13,12 +11,13 @@ class MainViewModel extends GetxController {
     switch (index) {
       case 0:
       // Get.toNamed('/') For arrow above page
-        Get.offAllNamed('/home');
+        Get.toNamed('/home');
         break;
       case 1:
-        Get.offAllNamed('/search'); // Navigate to the search page
+        Get.toNamed('/search'); // Navigate to the search page
         break;
       case 2:
+        Get.toNamed('/profile');
       // Profile page
         break;
     }
