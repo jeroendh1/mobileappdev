@@ -46,4 +46,10 @@ class AuthenticationViewModel {
     return registered;
   }
 
+  void signOut() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    await _prefs.clear();
+    await _secureStorage.clear();
+  }
+
 }
