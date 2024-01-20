@@ -18,7 +18,7 @@ abstract class BaseDatabaseHelper<T> {
     String path = join(await getDatabasesPath(), dbName);
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: (Database db, int version) async {
         await createCarTable(db);
         await createRentalTable(db);

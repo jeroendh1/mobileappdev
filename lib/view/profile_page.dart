@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../viewmodel/Auth_viewmodel.dart';
 import '../viewmodel/main_viewmodel.dart';
 import '../widget/menu_bar.dart';
 import 'faq_page.dart';
 
 class ProfilePage extends StatelessWidget {
-
+  AuthenticationViewModel authController = Get.put(AuthenticationViewModel());
   MainViewModel mainController =  Get.put(MainViewModel());
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -63,6 +65,8 @@ class ProfilePage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // Sign Out Logic
+                  authController.signOut();
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor: Colors.black, // Text color
