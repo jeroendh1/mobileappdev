@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../viewmodel/Auth_viewmodel.dart';
-import '../viewmodel/main_viewmodel.dart';
+import '../viewmodel/main_controller.dart';
 import '../widget/menu_bar.dart';
 import 'faq_page.dart';
 
 class ProfilePage extends StatelessWidget {
   AuthenticationViewModel authController = Get.put(AuthenticationViewModel());
-  MainViewModel mainController =  Get.put(MainViewModel());
+  MainController mainController =  Get.put(MainController());
 
   @override
   Widget build(BuildContext context) {

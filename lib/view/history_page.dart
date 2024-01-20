@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileappdev/viewmodel/history_viewmodel.dart';
 import '../widget/menu_bar.dart';
-import '../viewmodel/main_viewmodel.dart';
+import '../viewmodel/main_controller.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class HistoryPage extends StatefulWidget {
 
 class _HistoryPageState extends State<HistoryPage> {
   HistoryViewModel historyListController = Get.put(HistoryViewModel());
-  MainViewModel mainController = Get.put(MainViewModel());
+  MainController mainController = Get.put(MainController());
   GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
   GlobalKey<RefreshIndicatorState>();
   TextEditingController searchController = TextEditingController();
