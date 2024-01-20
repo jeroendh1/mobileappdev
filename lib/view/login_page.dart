@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobileappdev/view/home_page.dart';
 import 'package:provider/provider.dart';
 import '../viewmodel/Auth_viewmodel.dart';
@@ -120,6 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                               String? token = await authController.login(username, password, _rememberMe);
                               print(token);
                               if (token != null) {
+
                                 // Login successful, navigate to the next screen
                                 Navigator.pushReplacement(
                                   context,
@@ -128,10 +130,24 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 );
                               } else {
-                                // Show error message to the user or handle authentication failure
+                                Fluttertoast.showToast(
+                                    msg: "Gebruikersnaam of wachtwoord is niet correct",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.TOP,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
                               }
                             } else {
-                              // Show error message for empty fields
+                              Fluttertoast.showToast(
+                                  msg: "Vul alle gegevens in!",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.TOP,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.orange,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
                             }
                           },
                           style: ElevatedButton.styleFrom(

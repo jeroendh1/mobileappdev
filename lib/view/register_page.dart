@@ -188,6 +188,16 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ),
                                 );
                               }
+                              else{
+                                Fluttertoast.showToast(
+                                    msg: "Er is iets mis gegaan, probeer het later opnieuw",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.TOP,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xfff9b401),

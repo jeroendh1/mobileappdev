@@ -35,8 +35,9 @@ class ReservationController extends GetxController {
         car: car,
       );
       await ApiService().createRental(rental);
-      notificationService.scheduleNotificationForDeliveryDay(date_fromDate, 'Bezorging van ${car.brand}', 'De auto wordt vandaag bezorgd!');
-      notificationService.scheduleNotificationForDeliveryDay(date_toDate, 'Ophalen van ${car.brand}', 'De auto wordt vandaag opgehaald!');
+      notificationService.cancelMakeReservationNotification();
+      notificationService.scheduleNotificationForDeliveryDay(111, date_fromDate, 'Bezorging van ${car.brand}', 'De auto wordt vandaag bezorgd!');
+      notificationService.scheduleNotificationForDeliveryDay(222,date_toDate, 'Ophalen van ${car.brand}', 'De auto wordt vandaag opgehaald!');
       return true;
     } catch (e) {
       print('Error: $e');

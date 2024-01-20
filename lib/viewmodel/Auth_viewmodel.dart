@@ -1,9 +1,11 @@
+import 'package:get/get.dart';
 import 'package:mobileappdev/model/customer.dart';
 
 import '../service/Auth_Service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/SecureStorage.dart';
 import '../model/customer.dart';
+import '../service/notification_service.dart';
 
 class AuthenticationViewModel {
   final SecureStorage _secureStorage = SecureStorage();
@@ -18,7 +20,8 @@ class AuthenticationViewModel {
       await _secureStorage.writeSecureData('password', password);
 
       await _prefs.setBool("tokenValid", true);
-
+      NotificationService notificationService = Get.put(NotificationService());
+      notificationService.scheduleNotificationForReservation();
       // Customer? cutomer = await AuthenticationService().getCustomer();
       // if (cutomer != null){
       //   await _prefs.setInt("customerId", cutomer.id);
