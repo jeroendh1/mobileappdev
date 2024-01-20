@@ -14,7 +14,7 @@ class MainViewModel extends GetxController {
         Get.toNamed('/home');
         break;
       case 1:
-        Get.toNamed('/search'); // Navigate to the search page
+        Get.toNamed('/history');
         break;
       case 2:
         Get.toNamed('/profile');

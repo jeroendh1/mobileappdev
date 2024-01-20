@@ -24,8 +24,6 @@ class HomeViewModel extends GetxController {
     }
 
     originalPosts = await carDatabaseHelper.getDataFromDatabase();
-    // originalPosts = localCars.map((car) => Car(car: car)).toList();
-
     posts?.clear();
     posts?.addAll(originalPosts!);
     isLoaded.value = true;

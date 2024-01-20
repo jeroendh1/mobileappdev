@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../viewmodel/Auth_viewmodel.dart';
 import 'package:get/get.dart';
 
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -54,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                     print(token);
                     if (token != null) {
                       // Login successful, navigate to the next screen
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => HomePage()

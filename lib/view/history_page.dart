@@ -1,26 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobileappdev/viewmodel/history_viewmodel.dart';
 import '../widget/menu_bar.dart';
-import 'package:get/get.dart';
 import '../viewmodel/main_viewmodel.dart';
-// class HistoryPage extends StatelessWidget {
-//   MainViewModel mainController =  Get.put(MainViewModel());
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Search Page'),
-//       ),
-//       body: const Center(
-//         child: Text('Search Page Content'),
-//       ),
-//       bottomNavigationBar: BottomNavigationBarWidget(
-//         currentIndex: mainController.currentIndex.value,
-//         onTap: mainController.onTabSelected,
-//       ),
-//     );
-//   }
-// }
+
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
 
@@ -30,8 +13,9 @@ class HistoryPage extends StatefulWidget {
 
 class _HistoryPageState extends State<HistoryPage> {
   HistoryViewModel historyListController = Get.put(HistoryViewModel());
-  MainViewModel mainController =  Get.put(MainViewModel());
-  GlobalKey<RefreshIndicatorState> refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  MainViewModel mainController = Get.put(MainViewModel());
+  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+  GlobalKey<RefreshIndicatorState>();
   TextEditingController searchController = TextEditingController();
 
   Future<void> refreshData() async {
@@ -43,14 +27,9 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Reserveringen',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
+        backgroundColor: Colors.black,
+        title: Text('Reserveringen', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -60,7 +39,7 @@ class _HistoryPageState extends State<HistoryPage> {
               onRefresh: refreshData,
               child: Obx(
                     () => Visibility(
-                  visible:true,
+                  visible: true,
                   replacement: const Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -69,42 +48,59 @@ class _HistoryPageState extends State<HistoryPage> {
                     itemCount: historyListController.rentals!.length,
                     itemBuilder: (context, index) {
                       return Container(
-                        padding: const EdgeInsets.all(6),
-                          child: Stack(
-                            children: [
-                              Container(
-                                width: 368,
-                                height: 130,
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.circular(10.109890937805176),
-                                    border: Border.all(color: const Color(0xffC4C4C4))
-                                ),
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 10,
+                              offset: Offset(0, 2), // changes the position of the shadow
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 100,
+                              height: 100,
+                              child: Image(
+                                image: AssetImage(historyListController.rentals![index].car!.img),
+
                               ),
-                              Positioned(
-                                top: 20,
-                                left: 20,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('${historyListController.rentals![index].car?.brand} - ${historyListController.rentals![index].car?.model} ',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                        )),
-                                    Text('Status: ${historyListController.rentals![index].state}',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                        )),
-                                    Text('Start datum: ${historyListController.rentals![index].toDate}' ,
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${historyListController.rentals![index].car?.brand} - ${historyListController.rentals![index].car?.model} ',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
                                     ),
-                                    Text('Retour datum: ${historyListController.rentals![index].fromDate}' ,
+                                  ),
+                                  Text(
+                                    'Status: ${historyListController.rentals![index].state}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xffF9B401),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Text('Start datum: ${historyListController.rentals![index].fromDate}'),
+                                  Text('Retour datum: ${historyListController.rentals![index].toDate}'),
+                                  // Add more details here (pickup location, prices, etc.)
+                                ],
                               ),
-                            ],
-                          ),
-                        );
+                            ),
+                          ],
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -119,5 +115,4 @@ class _HistoryPageState extends State<HistoryPage> {
       ),
     );
   }
-
 }

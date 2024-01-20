@@ -6,7 +6,6 @@ import '../data/rental_database_helper.dart';
 
 class HistoryViewModel extends GetxController {
   List<Rental>? rentals = RxList<Rental>();
-  // List<Rental>? originalrentals = RxList<Rental>();
 
   getRentals() async {
     final rentalDatabaseHelper = RentalDatabaseHelper();

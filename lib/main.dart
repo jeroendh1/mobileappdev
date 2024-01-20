@@ -1,6 +1,9 @@
+import 'package:mobileappdev/service/notification_service.dart';
 import 'package:mobileappdev/view/login_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobileappdev/view/profile_page.dart';
+import 'package:geocoding/geocoding.dart';
+
 
 import 'data/SecureStorage.dart';
 import 'view/home_page.dart';
@@ -18,6 +21,7 @@ Future<void> main() async {
   final AuthenticationService authService = AuthenticationService();
 
   bool tokenValid = await authService.checkAndRenewToken();
+  await NotificationService().init();
 
 
   runApp(MyApp(tokenValid: tokenValid));
@@ -38,7 +42,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       getPages: [
         GetPage(name: '/home', page: () => const HomePage()),
-        GetPage(name: '/search', page: () => HistoryPage()),
+        GetPage(name: '/history', page: () => HistoryPage()),
         GetPage(name: '/profile', page: () => ProfilePage()),
       ],
     );
