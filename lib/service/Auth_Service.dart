@@ -129,13 +129,13 @@ class AuthenticationService {
   Future<Customer?> getCustomer() async {
     final String? token = await _secureStorage.readSecureData('token');
     if (token != null){
-      var uri = Uri.parse("$base_url/api/customers?eagerload=true");
+      var uri = Uri.parse("$base_url/api/AM/me");
       var response = await http.Client().get(uri, headers: {
         'Authorization': token,
       });
 
       if (response.statusCode == 200) {
-        return Customer.fromJson(response.body as Map<String, dynamic>);
+        return Customer.fromJson(json.decode(response.body));
       } else {
         throw Exception("Unable to perform request!");
       }

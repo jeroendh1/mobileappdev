@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:mobileappdev/model/car.dart';
 import 'package:mobileappdev/model/rentals.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../service/Api_service.dart';
 import '../service/notification_service.dart';
 
@@ -15,6 +16,13 @@ class ReservationController extends GetxController {
     if (date_toDate.isBefore(date_fromDate)) return 'Geen geldige datum';
 
     NotificationService notificationService = Get.put(NotificationService());
+
+
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    int? customerId = _prefs.getInt('customerId');
+    String? firstName = _prefs.getString('firstName');
+    String? lastName = _prefs.getString('lastName');
+
 
     List<Location> locations;
     try {
