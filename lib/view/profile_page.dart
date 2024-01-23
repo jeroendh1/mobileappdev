@@ -70,7 +70,7 @@ class ProfilePage extends StatelessWidget {
                 onPressed: () {
                   // Sign Out Logic
                   authController.signOut();
-                  Navigator.pushReplacementNamed(context, '/login');
+                  Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor: Colors.black, // Text color

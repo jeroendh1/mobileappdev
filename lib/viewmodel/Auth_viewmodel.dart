@@ -22,16 +22,14 @@ class AuthenticationViewModel {
       await _prefs.setBool("tokenValid", true);
       NotificationService notificationService = Get.put(NotificationService());
       notificationService.scheduleNotificationForReservation();
-      // Customer? cutomer = await AuthenticationService().getCustomer();
-      // if (cutomer != null){
-      //   await _prefs.setInt("customerId", cutomer.id);
-      //   await _prefs.setString("firstName", cutomer.firstName);
-      //   await _prefs.setString("lastName", cutomer.lastName);
-      // }
 
+      Customer? cutomer = await AuthenticationService().getCustomer();
+      if (cutomer != null){
+        await _prefs.setInt("customerId", cutomer.id);
+        await _prefs.setString("firstName", cutomer.firstName);
+        await _prefs.setString("lastName", cutomer.lastName);
+      }
 
-
-      // Save current datetime in SharedPreferences
       DateTime now = DateTime.now();
       String formattedDate = now.toIso8601String();
       await _prefs.setString('tokenTimestamp', formattedDate);
