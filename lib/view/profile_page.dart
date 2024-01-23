@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../viewmodel/Auth_viewmodel.dart';
 import '../viewmodel/main_controller.dart';
 import '../widget/menu_bar.dart';
+import 'damage_report_page.dart';
 import 'faq_page.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -54,7 +55,10 @@ class ProfilePage extends StatelessWidget {
               SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
-                  // Schade Melden Logic
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const DamageReportPage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor:  Color(0xffF9B401), // Text color

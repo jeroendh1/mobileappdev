@@ -6,6 +6,8 @@ import '../model/car.dart';
 import '../data/SecureStorage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import '../model/inspection.dart';
+
 final String? base_url = dotenv.env['Base_URL'];
 
 class ApiService {
@@ -25,6 +27,29 @@ class ApiService {
       }
     } else {
       return null;
+    }
+  }
+
+  Future<void> postImage(Inspection report) async {
+    try {
+      final String? token = await _secureStorage.readSecureData('token');
+      var uri = Uri.parse("$base_url/api/inspections");
+      var response = await http.post(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token!,
+        },
+        body:json.encode(report.toJson()),
+      );
+
+      if (response.statusCode == 201) {
+        print('Rental created successfully');
+      } else {
+        throw Exception("Unable to create rental!");
+      }
+    } catch (e) {
+      print('Error creating rental: $e');
     }
   }
 
