@@ -4,6 +4,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:mobileappdev/model/car.dart';
 import 'package:mobileappdev/model/rentals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../model/customer.dart';
 import '../service/Api_service.dart';
 import '../service/notification_service.dart';
 
@@ -19,10 +20,10 @@ class ReservationController extends GetxController {
 
 
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    int? customerId = _prefs.getInt('customerId');
-    String? firstName = _prefs.getString('firstName');
-    String? lastName = _prefs.getString('lastName');
-
+    int? customerId = _prefs.getInt('customerId') ?? 0;
+    String? firstName = _prefs.getString('firstName') ?? '';
+    String? lastName = _prefs.getString('lastName') ?? '';
+    Customer customer = Customer(id: customerId, lastName: lastName, firstName: firstName);
 
     List<Location> locations;
     try {
@@ -41,6 +42,7 @@ class ReservationController extends GetxController {
         toDate: toDate,
         state: 'RESERVED',
         car: car,
+        customer: customer
       );
       await ApiService().createRental(rental);
       notificationService.cancelMakeReservationNotification();

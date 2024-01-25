@@ -44,7 +44,7 @@ class _HistoryPageState extends State<HistoryPage> {
                     child: CircularProgressIndicator(),
                   ),
                   child: ListView.builder(
-                    physics: const ScrollPhysics(),
+                    physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: historyListController.rentals!.length,
                     itemBuilder: (context, index) {
                       return Container(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../model/car.dart';
+import 'customer.dart';
 
 List<Rental> rentalFromJson(String str) =>
     List<Rental>.from(json.decode(str).map((x) => Rental.fromJson(x)));
@@ -16,6 +17,7 @@ class Rental {
   String toDate;
   String state;
   Car? car;
+  Customer? customer;
   int? car_id;
 
   Rental({
@@ -27,6 +29,7 @@ class Rental {
     required this.toDate,
     required this.state,
     this.car,
+    this.customer,
     this.car_id,
   });
 
@@ -73,5 +76,6 @@ class Rental {
     "state": state,
     "car_id": car_id,
     "car": car,
+    "customer": customer
   };
 }
