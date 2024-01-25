@@ -20,22 +20,18 @@ class DamageReportController extends GetxController {
       final result = await ApiService().getRentals();
       if (result != null) {
         await rentalDatabaseHelper.saveDataToDatabase(result.cast<Rental>());
-        print("Saved data ");
       }
     }
     final localRentals = await rentalDatabaseHelper.getDataFromDatabase();
 
     rentals?.clear();
-    rentals?.addAll(localRentals!);
-    print("getData (DB)");
+    rentals?.addAll(localRentals);
   }
 
   makeDamageReport(image, rentalId)async {
-    print('image');
     List<int> imageBytes = await image!.readAsBytes();
     String base64Image = base64Encode(imageBytes);
-    print(base64Image);
-    await ApiService().postImage(image);
+    await ApiService().postImage(base64Image, rentalId);
 
   }
 

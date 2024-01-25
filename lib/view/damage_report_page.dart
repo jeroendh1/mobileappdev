@@ -102,8 +102,9 @@ class _DamageReportPageState extends State<DamageReportPage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-              if (selectedRentalId != null) {
+              if (selectedRentalId != null && _image != null) {
                 damageReportController.makeDamageReport(_image, selectedRentalId!);
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
               } else {
                 // Handle case where no rental is selected
                 print('Please select a rental');

@@ -31,7 +31,7 @@ class ApiService {
     }
   }
 
-  Future<void> postImage(Inspection report) async {
+  Future<void> postImage(image, rentalId) async {
     try {
       final String? token = await _secureStorage.readSecureData('token');
       var uri = Uri.parse("$base_url/api/inspections");
@@ -41,7 +41,11 @@ class ApiService {
           'Content-Type': 'application/json',
           'Authorization': token!,
         },
-        body:json.encode(report.toJson()),
+        body: jsonEncode({
+          'photo': image,
+          'photoContentType': "string",
+          "rental": {"id":rentalId}
+        }),
       );
 
       if (response.statusCode == 201) {
