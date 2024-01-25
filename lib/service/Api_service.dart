@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:mobileappdev/model/rentals.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../model/car.dart';
 import '../data/SecureStorage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -54,8 +55,10 @@ class ApiService {
   }
 
   Future<List<Rental>?> getRentals() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
     final String? token = await _secureStorage.readSecureData('token');
-    var uri = Uri.parse("$base_url/api/rentals");
+    int? cutomerId = _prefs.getInt('customerId');
+    var uri = Uri.parse("$base_url/api/rentals?customerId.equals=$cutomerId");
     var response = await http.Client().get(uri, headers: {
       'Authorization': token!,
     });
