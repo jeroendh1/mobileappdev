@@ -116,7 +116,7 @@ class _DamageReportPageState extends State<DamageReportPage> {
                     damageReportController.makeDamageReport(
                         _image, selectedRentalId!);
                     Navigator.pushNamedAndRemoveUntil(
-                        context, '/', (route) => false);
+                        context, '/profile', (route) => false);
                   } else {
                     // Handle case where no rental is selected
                     print('Please select a rental');
