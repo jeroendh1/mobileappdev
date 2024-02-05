@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/SecureStorage.dart';
@@ -11,7 +13,7 @@ final String? base_url = dotenv.env['Base_URL'];
 class AuthenticationService {
   final SecureStorage _secureStorage = SecureStorage();
 
-  Future<String?> login(String username, String password, bool rememberMe) async {
+  Future<String?> logintest(String username, String password, bool rememberMe) async {
     try {
       var uri = Uri.parse('$base_url/api/authenticate');
       var response = await http.post(
@@ -37,6 +39,24 @@ class AuthenticationService {
       // Handle exceptions or network errors
       print('Error refreshing token: $e');
       return null;
+    }
+  }
+
+  Future<String> login(String username, String password, bool rememberMe) async {
+    var uri = Uri.parse('$base_url/api/authenticate');
+    var response = await http.post(
+      uri,
+      body: jsonEncode({
+        'username': username,
+        'password': password,
+        'rememberMe': rememberMe,
+      }),
+      headers: {'Content-Type': 'application/json'},
+    );
+    if (response.statusCode != 200){
+      throw Exception('Failed to authenticate: ${response.statusCode}');
+    } else {
+      return response.headers['authorization']!;
     }
   }
 

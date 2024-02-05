@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobileappdev/view/home_page.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../viewmodel/Auth_viewmodel.dart';
 import 'package:get/get.dart';
 
@@ -118,10 +119,11 @@ class _LoginPageState extends State<LoginPage> {
                             String username = _usernameController.text.trim();
                             String password = _passwordController.text.trim();
                             if (username.isNotEmpty && password.isNotEmpty) {
-                              String? token = await authController.login(username, password, _rememberMe);
+                              String token = await authController.login(username, password, _rememberMe);
+                              SharedPreferences _prefs = await SharedPreferences.getInstance();
+                              bool? tokenValid = _prefs.getBool("tokenValid");
                               print(token);
-                              if (token != null) {
-
+                              if (tokenValid!) {
                                 // Login successful, navigate to the next screen
                                 Navigator.pushReplacement(
                                   context,

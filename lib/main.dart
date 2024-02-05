@@ -14,8 +14,8 @@ import 'package:get/get.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  // final SecureStorage _secureStorage = SecureStorage(); //Voor het opstarten zonder een token
-  // await _secureStorage.deleteSecureData('token'); //Voor het opstarten zonder een token
+  final SecureStorage _secureStorage = SecureStorage(); //Voor het opstarten zonder een token
+  await _secureStorage.deleteSecureData('token'); //Voor het opstarten zonder een token
 
   final AuthenticationService authService = AuthenticationService();
 
