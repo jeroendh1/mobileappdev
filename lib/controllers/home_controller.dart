@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import '../model/car.dart';
-import '../service/Api_service.dart';
+import '../services/api_service.dart';
 import '../data/car_database_helper.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 

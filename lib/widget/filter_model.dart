@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../viewmodel/home_viewmodel.dart';
 import 'package:get/get.dart';
+
+import '../controllers/home_controller.dart';
 
 class FilterModalBottomSheet extends StatefulWidget {
   @override

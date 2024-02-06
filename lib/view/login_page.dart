@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobileappdev/view/home_page.dart';
-import 'package:provider/provider.dart';
-import '../viewmodel/Auth_viewmodel.dart';
+import '../controllers/authentication_controller.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {

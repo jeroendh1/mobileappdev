@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../viewmodel/Auth_viewmodel.dart';
-import '../viewmodel/main_controller.dart';
+import '../controllers/authentication_controller.dart';
+import '../controllers/main_controller.dart';
 import '../widget/menu_bar.dart';
 import 'damage_report_page.dart';
 import 'faq_page.dart';

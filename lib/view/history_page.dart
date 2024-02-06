@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobileappdev/viewmodel/history_viewmodel.dart';
+import '../controllers/history_controller.dart';
+import '../controllers/main_controller.dart';
 import '../widget/menu_bar.dart';
-import '../viewmodel/main_controller.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);

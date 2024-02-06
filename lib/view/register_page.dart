@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:mobileappdev/view/login_page.dart';
 
-import '../viewmodel/Auth_viewmodel.dart';
+import '../controllers/authentication_controller.dart';
 
 class RegisterPage extends StatefulWidget {
   @override

@@ -1,12 +1,11 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:mobileappdev/model/car.dart';
 import 'package:mobileappdev/model/rentals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/customer.dart';
-import '../service/Api_service.dart';
-import '../service/notification_service.dart';
+import '../services/api_service.dart';
+import '../services/notification_service.dart';
 
 class ReservationController extends GetxController {
 

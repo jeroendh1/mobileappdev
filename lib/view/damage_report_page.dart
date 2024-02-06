@@ -2,10 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import '../controllers/damage_report_controller.dart';
+import '../controllers/main_controller.dart';
 import '../model/rentals.dart';
-import '../viewmodel/damage_report_controller.dart';
 import '../widget/menu_bar.dart';
-import '../viewmodel/main_controller.dart';
 
 class DamageReportPage extends StatefulWidget {
   const DamageReportPage({Key? key}) : super(key: key);

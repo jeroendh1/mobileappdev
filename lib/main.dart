@@ -1,13 +1,13 @@
-import 'package:mobileappdev/service/notification_service.dart';
+import 'package:mobileappdev/services/authentication_service.dart';
+import 'package:mobileappdev/services/notification_service.dart';
 import 'package:mobileappdev/view/login_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobileappdev/view/profile_page.dart';
 import 'package:mobileappdev/view/register_page.dart';
 
-import 'data/SecureStorage.dart';
+import 'data/secure_storage.dart';
 import 'view/home_page.dart';
 import 'view/history_page.dart';
-import 'service/Auth_Service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

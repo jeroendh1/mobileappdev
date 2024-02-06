@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:mobileappdev/model/customer.dart';
 
-import '../service/Auth_Service.dart';
+import '../services/authentication_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../data/SecureStorage.dart';
+import '../data/secure_storage.dart';
 import '../model/customer.dart';
-import '../service/notification_service.dart';
+import '../services/notification_service.dart';
 
 class AuthenticationViewModel {
   final SecureStorage _secureStorage = SecureStorage();

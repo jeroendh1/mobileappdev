@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileappdev/view/product_details_page.dart';
-import '../viewmodel/home_viewmodel.dart';
-import '../viewmodel/main_controller.dart';
+import '../controllers/home_controller.dart';
+import '../controllers/main_controller.dart';
 import '../widget/menu_bar.dart';
 
 import '../widget/filter_model.dart';
